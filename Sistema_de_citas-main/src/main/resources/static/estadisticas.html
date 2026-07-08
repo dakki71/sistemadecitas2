@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas - Hospital de la Solidaridad</title>
+    <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="encabezado-navegacion">
+    <div class="logotipo">
+        <img src="/imagenes/logomuni.png" alt="Logo Hospital">
+        <h1>Hospital de la Solidaridad</h1>
+    </div>
+    <nav class="menu-principal">
+        <a href="/index.html">Inicio</a>
+        <a href="/especialidades.html">Especialidades</a>
+        <a href="/doctores.html">Doctores</a>
+        <a href="/horarios.html">Horarios</a>
+        <a href="/estadisticas.html" class="enlace-activo">Estadísticas</a>
+    </nav>
+    <div class="botones-acceso">
+        <button class="boton-blanco" onclick="window.location.href='/index.html'">Regresar</button>
+    </div>
+</header>
+
+<main class="area-gestion-medica">
+    <div class="tarjeta-panel">
+
+        <div class="cabecera-panel">
+            <div class="titulos-seccion">
+                <h2>Estadísticas de Citas por Doctor</h2>
+                <p>Consulta el rendimiento de cada médico según especialidad y estado de cita.</p>
+            </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filtros-estadisticas">
+            <div class="contenedor-selector">
+                <label class="etiqueta-selector">Especialidad:</label>
+                <select id="filtroEspecialidad" class="selector-estandar">
+                    <option value="">Todas las especialidades</option>
+                </select>
+            </div>
+
+            <div class="contenedor-selector">
+                <label class="etiqueta-selector">Estado de Cita:</label>
+                <select id="filtroEstado" class="selector-estandar">
+                    <option value="">Todos los estados</option>
+                    <option value="CONFIRMADA">Confirmada</option>
+                    <option value="PENDIENTE">Pendiente</option>
+                    <option value="COMPLETADA">Completada</option>
+                </select>
+            </div>
+
+            <div class="fila-botones-filtro">
+                <button class="boton-azul" id="btnBuscarEstadisticas">Buscar</button>
+                <button class="boton-blanco" onclick="limpiarFiltros()">↺ Limpiar</button>
+            </div>
+        </div>
+
+        <!-- TABLA RESULTADOS -->
+        <div class="tabla-responsiva" style="margin-top: 20px;">
+            <table class="tabla-doctores">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Doctor</th>
+                    <th>Especialidad</th>
+                    <th>Total Citas</th>
+                    <th>Ingresos</th>
+                </tr>
+                </thead>
+                <tbody id="tablaEstadisticasBody">
+                <tr>
+                    <td colspan="4" class="celda-estado">Aplica los filtros y haz clic en Buscar.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const paciente = JSON.parse(sessionStorage.getItem('paciente'));
+    if (!paciente || paciente.rol !== 'ADMIN') {
+        window.location.href = '/index.html';
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>

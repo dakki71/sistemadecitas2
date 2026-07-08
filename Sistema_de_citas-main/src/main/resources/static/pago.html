@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Hospital de la Solidaridad</title>
+    <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="encabezado-navegacion">
+    <div class="logotipo">
+        <img src="/imagenes/logomuni.png" alt="Logo Hospital">
+        <h1>Hospital de la Solidaridad</h1>
+    </div>
+    <nav class="menu-principal">
+        <a href="/">Inicio</a>
+    </nav>
+    <div class="botones-acceso" id="zona-sesion"></div>
+</header>
+
+<div class="area-gestion-medica">
+    <div class="tarjeta-panel panel-formulario">
+
+        <div class="cabecera-formulario">
+            <h2>Confirmar Pago</h2>
+            <p>Revisa el resumen de tu cita y elige el método de pago.</p>
+            <p id="temporizador-pago" style="color: #dc2626; font-weight: bold; margin-top: 10px; background: #fee2e2; padding: 8px; border-radius: 8px;">
+                La reserva expira en: <span id="tiempo-restante">01:00</span>
+            </p>
+        </div>
+
+        <div class="resumen-pago">
+            <div class="fila-resumen"><span>Especialidad</span><strong id="pago-especialidad">—</strong></div>
+            <div class="fila-resumen"><span>Doctor</span><strong id="pago-doctor">—</strong></div>
+            <div class="fila-resumen"><span>Fecha</span><strong id="pago-fecha">—</strong></div>
+            <div class="fila-resumen"><span>Hora</span><strong id="pago-hora">—</strong></div>
+            <div class="fila-resumen total"><span>Total a pagar</span><strong>S/ 30.00</strong></div>
+        </div>
+
+        <div class="metodos-pago">
+            <p class="etiqueta-selector">Selecciona tu método de pago</p>
+            <div class="grilla-metodos">
+                <div class="tarjeta-metodo" onclick="seleccionarMetodo(this, 'YAPE')">
+                    <img src="/imagenes/Icono_de_la_aplicación_Yape.png" alt="Yape">
+                    <span>Yape</span>
+                </div>
+                <div class="tarjeta-metodo" onclick="seleccionarMetodo(this, 'TARJETA')">
+                    <img src="/imagenes/TarjetaPago.png" alt="Tarjeta">
+                    <span>Tarjeta</span>
+                </div>
+                <div class="tarjeta-metodo" onclick="seleccionarMetodo(this, 'EFECTIVO')">
+                    <img src="/imagenes/Efectivo_ICONO.png" alt="Efectivo">
+                    <span>Efectivo</span>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="metodo-seleccionado" value="">
+
+        <div style="margin-top: 30px;">
+            <button class="boton-accion-total" onclick="procesarPago()" style="width:100%;">
+                Confirmar y Pagar
+            </button>
+            <button class="boton-volver" onclick="volverDesdePago()"
+                    style="width:100%; margin-top:12px; text-align:center;">
+                ← Volver y cancelar reserva
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<footer class="pie-inferior">
+    <div class="contenedor-pie">
+        <div class="columna-footer">
+            <h4>Hospital de la Solidaridad Vitarte</h4>
+            <p>Donde tu salud y tu vida es lo más importante para nosotros.</p>
+        </div>
+        <div class="columna-footer">
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sobre_nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="mision.html">Misión</a></li>
+                <li><a href="vision.html">Visión</a></li>
+            </ul>
+        </div>
+        <div class="columna-footer">
+            <h4>Ayuda</h4>
+            <p>Horario de atención: Lunes a Sábado de 7:00 am a 7:00 pm.</p>
+            <br>
+            <p>Preguntas frecuentes</p>
+        </div>
+        <div class="columna-footer">
+            <h4>Contacto</h4>
+            <div class="item-contacto">
+                Vitarte, Lima - Perú
+            </div>
+            <div class="item-contacto">
+                (01) 555-1234
+            </div>
+            <div class="item-contacto">
+                contacto@hospital.pe
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Hospital de la Solidaridad Vitarte.
+            Todos los derechos reservados.
+        </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>

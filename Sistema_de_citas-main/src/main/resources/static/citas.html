@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacar Cita - Hospital de la Solidaridad</title>
+    <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="encabezado-navegacion">
+    <div class="logotipo">
+        <img src="/imagenes/logomuni.png" alt="Logo Hospital">
+        <h1>Hospital de la Solidaridad</h1>
+    </div>
+    <nav class="menu-principal">
+        <a href="/index.html">Inicio</a>
+        <a href="/citas.html">Sacar Cita</a>
+        <a href="/miscitas.html">Mis Citas</a>
+    </nav>
+    <div class="botones-acceso" id="zona-sesion">
+    </div>
+</header>
+
+<div class="area-gestion-medica">
+    <div class="tarjeta-panel">
+
+        <div class="cabecera-panel">
+            <div class="titulos-seccion">
+                <h2>Sacar Cita</h2>
+                <p>Selecciona una especialidad, luego el doctor y el horario disponible.</p>
+            </div>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="pasos-cita">
+            <div class="paso-indicador activo" id="ind-paso1">① Especialidad</div>
+            <div class="paso-indicador" id="ind-paso2">② Doctor</div>
+            <div class="paso-indicador" id="ind-paso3">③ Horario</div>
+        </div>
+
+        <!-- Tabla de Especialidades -->
+        <div id="paso1">
+            <div class="tabla-responsiva">
+                <table class="tabla-doctores">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Especialidad</th>
+                        <th>Descripción</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabla-especialidades-body">
+                    <tr>
+                        <td colspan="4" class="celda-estado">Cargando especialidades...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabla de Doctores -->
+        <div id="paso2" class="oculto">
+            <button class="boton-volver" onclick="volverPaso(1)">← Volver a Especialidades</button>
+            <h3 class="subtitulo-paso">Doctores disponibles en <span id="nombre-especialidad-sel"></span></h3>
+            <div class="tabla-responsiva">
+                <table class="tabla-doctores">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabla-doctores-body">
+                    <tr>
+                        <td colspan="5" class="celda-estado">Selecciona una especialidad primero.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabla de Horarios -->
+        <div id="paso3" class="oculto">
+            <button class="boton-volver" onclick="volverPaso(2)">← Volver a Doctores</button>
+            <h3 class="subtitulo-paso">Horarios del Dr. <span id="nombre-doctor-sel"></span></h3>
+            <div class="tabla-responsiva">
+                <table class="tabla-doctores">
+                    <thead>
+                    <tr>
+                        <th>Día</th>
+                        <th>Hora inicio</th>
+                        <th>Hora fin</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabla-horarios-body">
+                    <tr>
+                        <td colspan="4" class="celda-estado">Cargando horarios...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal para confirmar fecha y motivo -->
+<div id="modal-confirmar-cita" class="capa-fondo-modal">
+    <div class="cuadro-emergente">
+        <span class="cerrar-ventana" onclick="toggleModal('modal-confirmar-cita')">&times;</span>
+        <h3>Confirmar Cita</h3>
+        <div class="resumen-cita">
+            <p><strong>Especialidad:</strong> <span id="res-especialidad"></span></p>
+            <p><strong>Doctor:</strong> <span id="res-doctor"></span></p>
+            <p><strong>Día:</strong> <span id="res-dia"></span></p>
+            <p><strong>Horario:</strong> <span id="res-horario"></span></p>
+            <div style="margin-top:12px;">
+                <label class="etiqueta-selector"><strong>Elige tu hora de atención:</strong></label>
+                <div id="slots-horario" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;"></div>
+            </div>
+        </div>
+        <div class="formulario-estandar" style="margin-top:20px;">
+            <label class="etiqueta-selector">Motivo (opcional)</label>
+            <textarea id="input-motivo" placeholder="Describe brevemente tu motivo de consulta..." rows="3"></textarea>
+            <button class="boton-accion-total" onclick="confirmarYPagar()">Ir al Pago →</button>
+        </div>
+    </div>
+</div>
+
+<footer class="pie-inferior">
+    <div class="contenedor-pie">
+        <div class="columna-footer">
+            <h4>Hospital de la Solidaridad Vitarte</h4>
+            <p>Donde tu salud y tu vida es lo más importante para nosotros.</p>
+        </div>
+        <div class="columna-footer">
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sobre_nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="mision.html">Misión</a></li>
+                <li><a href="vision.html">Visión</a></li>
+            </ul>
+        </div>
+        <div class="columna-footer">
+            <h4>Ayuda</h4>
+            <p>Horario de atención: Lunes a Sábado de 7:00 am a 7:00 pm.</p>
+            <br>
+            <p>Preguntas frecuentes</p>
+        </div>
+        <div class="columna-footer">
+            <h4>Contacto</h4>
+            <div class="item-contacto">
+                Vitarte, Lima - Perú
+            </div>
+            <div class="item-contacto">
+                (01) 555-1234
+            </div>
+            <div class="item-contacto">
+                contacto@hospital.pe
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Hospital de la Solidaridad Vitarte.
+            Todos los derechos reservados.
+        </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>
