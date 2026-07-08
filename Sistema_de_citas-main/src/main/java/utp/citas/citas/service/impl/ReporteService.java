@@ -15,6 +15,10 @@ public class ReporteService {
 
     private final DataSource dataSource;
 
+    public ReporteService() {
+        this(null);
+    }
+
     public ReporteService(DataSource dataSource) {
         this.dataSource = dataSource;
     }

@@ -6,7 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utp.citas.citas.model.DoctorCitasDTO;
+import utp.citas.citas.model.ReporteAfluencia;
 import utp.citas.citas.repository.CitaRepository;
+import utp.citas.citas.repository.ReporteAfluenciaRepository;
 import utp.citas.citas.service.impl.ReporteService;
 
 import java.util.List;
@@ -18,10 +20,31 @@ public class ReporteController {
 
     private final ReporteService reporteService;
     private final CitaRepository citaRepository;
+    // 1. Declaramos el nuevo repositorio de la vista de Supabase
+    private final ReporteAfluenciaRepository reporteAfluenciaRepository;
 
-    public ReporteController(ReporteService reporteService, CitaRepository citaRepository) {
-        this.reporteService  = reporteService;
-        this.citaRepository  = citaRepository;
+    // 2. Lo agregamos al constructor para que Spring lo inyecte automáticamente
+    public ReporteController(ReporteService reporteService,
+                             CitaRepository citaRepository,
+                             ReporteAfluenciaRepository reporteAfluenciaRepository) {
+        this.reporteService = reporteService;
+        this.citaRepository = citaRepository;
+        this.reporteAfluenciaRepository = reporteAfluenciaRepository;
+    }
+
+    /**
+     * NUEVA CONSULTA: Retorna el análisis de afluencia por días y turnos
+     * Endpoint: GET /api/reportes/afluencia
+     */
+    @GetMapping("/afluencia")
+    public ResponseEntity<List<ReporteAfluencia>> obtenerReporteAfluencia() {
+        try {
+            List<ReporteAfluencia> reporte = reporteAfluenciaRepository.findAll();
+            return ResponseEntity.ok(reporte);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/doctores/pdf")
